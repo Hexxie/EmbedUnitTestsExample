@@ -32,10 +32,16 @@ SRC_FILES1=\
   $(UNITY_ROOT)/unity/general/unity.c \
   $(UNITY_ROOT)/unity/extra/unity_fixture.c \
   src/LedDriver.c \
+  test/mock/RuntimeErrorStub.c \
   test/LedDriverTest.c \
   test/test_runners/LedDriverTest_Runner.c \
   test/test_runners/all_tests.c
-INC_DIRS=-Isrc -I$(UNITY_ROOT)/unity/general -I$(UNITY_ROOT)/unity/extra
+INC_DIRS=\
+  -Isrc -Iinclude/util \
+  -Itest/mock \
+  -I$(UNITY_ROOT)/unity/general \
+  -I$(UNITY_ROOT)/unity/extra
+
 SYMBOLS=
 
 all: clean default

@@ -1,5 +1,7 @@
 #include "LedDriver.h"
+#include "RuntimeError.h"
 
+const char* OUT_OF_BOUNDS_MSG = "LED Driver: out-of-bounds LED";
 enum {ALL_LEDS_ON = ~0, ALL_LEDS_OFF=~ALL_LEDS_ON};
 
 static uint16_t *ledsAddress;
@@ -28,7 +30,9 @@ void LedDriver_TurnOn(int ledNumber)
   {
     ledsImage |= convertLedNumbertToBit(ledNumber);
     updateHW();
-  }  
+  } else {
+    RUNTIME_ERROR(OUT_OF_BOUNDS_MSG, ledNumber);
+  } 
 }
 
 void LedDriver_TurnOff(int ledNumber)
@@ -37,7 +41,9 @@ void LedDriver_TurnOff(int ledNumber)
   {
     ledsImage &= ~convertLedNumbertToBit(ledNumber);  
     updateHW();
-  }
+  } else {
+    RUNTIME_ERROR(OUT_OF_BOUNDS_MSG, ledNumber);
+  } 
 }
 
 void LedDriver_TurnAllOn(void)
